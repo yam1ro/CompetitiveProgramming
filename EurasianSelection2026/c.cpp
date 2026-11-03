@@ -47,8 +47,8 @@ void solve() {
         return mn;
     }; 
 
-    int sum = f(t), cur = rep(stoll(t));
-    cout << cur << " ";
+    int sum = f(t);
+    cout << rep(sum) << " ";
      
     int q; cin >> q;
     vector <int> p(q), d(q);

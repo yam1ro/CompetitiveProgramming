@@ -16,11 +16,13 @@ using namespace __gnu_pbds;
 
 template <class T> using ordered_set = tree <T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+
 const int N = 5e5 + 5, P = 911382, P2 = 972663, MOD = 1e9 + 7, MOD2 = 998244353, INF = 1e18;
+const int L = 1e9;
 
 void solve() {
     int n; cin >> n;
-    int l = 1e9 + 1;
 
     auto ask = [&] (int x) {
         cout << "? " << x << endl;
@@ -31,32 +33,44 @@ void solve() {
         return bc;
     };
 
-    auto dir = [&] (int x, int d, int t) {
-        int s = (x + d) % l, f = (x - d + f) % l;
-        return (t ? f : s);
+    auto norm = [&] (int x) {
+        return (x - 1 + L) % L + 1;
     };
-
+    
     auto pr = [&] (int ans) {
         cout << "! " << ans << endl; 
     };
 
-    map <int, int> used;
+    if (n <= 15) {
+        vector <int> c;
+        for (int i = 0; i < 20; ++i) {
+            int cur = rng() % L + 1;
+            auto [ret, d] = ask(cur);
+            int a = norm(cur + d), b = norm(cur - d);
+            for (int &x : c) {
+                if (x == a) { pr(a); return; }
+                else if (x == b) { pr(b); return; }
+            }
+            c.ph(a);
+            if (b != a) c.ph(b);
+        }
+        return;
+    }
 
+    
     for (int i = 1; i <= 15; ++i) {
-        int cur = rand() % l;
-        while (used.count(cur)) cur = rand() % l;
-        int t = rand() % 2;
+        int cur = rng() % L + 1; 
         auto [ret, d] = ask(cur);
-        int x =  dir(cur, d, t);
-        auto [ret2, d2] = ask(x);
-        int ans = dir(cur, d, t ^ 1);
+        int a = norm(cur + d), b = norm(cur - d);
+        auto [ret2, d2] = ask(a);
         
         if (!ret2) {
-            pr(ans);
+            pr(b);
             return;
         }
-        else used[x] = 1;
     }
+
+    pr(1);
 }
 
 signed main() {
