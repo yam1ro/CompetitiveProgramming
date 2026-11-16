@@ -21,10 +21,45 @@ mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 const int N = 5e5 + 5, P = 911382, P2 = 972663, MOD = 1e9 + 7, MOD2 = 998244353, INF = 1e18;
 
 void solve() {
-    
+    int n; cin >> n;
+    vector <pair <int, int>> seg;
+
+    for (int i = 0; i < n; ++i) {
+        int x, y, r; cin >> x >> y >> r;
+        int t1 = (-x - 1) * r, t2 = -x * r;
+
+        seg.ph({t1, y}); seg.ph({t2, -y});
+    }
+
+    sort(all(seg));
+
+    set <int> cur, was;
+
+    int i = 0, m = sz(seg);
+    while (i < m) {
+        int curt = seg[i].F;
+        int j = i;
+
+        while (j < m && seg[j].F == curt) {
+            int y = seg[j].S;
+            if (y > 0) cur.insert(y);
+            else cur.erase(-y);
+            ++j;
+        }
+
+        if (!cur.empty()) {
+            was.insert(*cur.begin());
+        }
+
+        i = j;
+    }
+
+    cout << sz(was);
 }
 
 signed main() {
+  freopen("stampede.in", "r", stdin);
+  freopen("stampede.out", "w", stdout);
   ios::sync_with_stdio(false);
   cin.tie(0);
   cout.tie(0);  
