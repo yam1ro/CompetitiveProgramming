@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 
 using namespace std;
+using namespace __gnu_pbds;
 
 #define int long long
 #define sz(x) (int)x.size()
@@ -8,53 +11,28 @@ using namespace std;
 #define F first
 #define S second
 #define ph push_back
-#define pb pop_back
+#define pp pop_back
+#define ar array
 
-const int N = 5e5 + 5, MOD = 1e9 + 7, INF = 1e18;
+template <class T> using ordered_set = tree <T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-struct node {
-    int x, y, r;
-};
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+
+const int N = 5e5 + 5, P = 911382, P2 = 972663, MOD = 1e9 + 7, MOD2 = 998244353, INF = 1e18;
 
 void solve() {
-    int n; cin >> n; 
-
-    vector <node> cow(n);
-    for (int i = 1; i <= n; ++i) {
-        cin >> cow[i].x >> cow[i].y >> cow[i].r;
-    }
-
-    vector <pair <int, int> > invs(n);
-
-    for (int i = 0; i < n; ++i) {
-        int r = abs(cow[i].x) * cow[i].r;
-        int l = r - cow[i].r;
-        invs[i] = {l, r}; 
-    }
-
-    sort(all(cow), [&] (const node a, const node b) {
-        return a.y < b.y; 
-    });
-
-    int res = 0;
-
-    for (int i = 0; i < n; ++i) {
-        
-    }
+    
 }
 
 signed main() {
-#ifndef ONLINE_JUDGE
-	freopen("stampede.in", "r", stdin);
-	freopen("stampede.out", "w", stdout);
-#endif
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    cout.tie(0);
-    int T = 1;
-    // cin >> T;
-    while (T--) {
-        solve();
-        cout << "\n";
-    }
+  ios::sync_with_stdio(false);
+  cin.tie(0);
+  cout.tie(0);  
+  int T = 1;
+  // cin >> T;
+  while (T--) {
+    solve();
+    cout << "\n";
+  }
 }
+
