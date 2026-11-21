@@ -23,7 +23,29 @@ const int N = 5e5 + 5, P = 911382, P2 = 972663, MOD = 1e9 + 7, MOD2 = 998244353,
 
 void solve() {
     int n; cin >> n;
-    v  l
+    int ax = 0, ay = 0;
+
+    vector <ar <int, 2>> pts(n);
+    for (auto &[x, y] : pts) {
+        cin >> x >> y;
+        ax += x, ay += y;
+    }
+    
+    ax /= n, ay /= n;
+    
+
+    for (auto &[x, y] : pts) {
+        x = x - ax, y = y - ay;
+    }
+     
+    sort(all(pts), [&] (ar <int, 2> a, ar <int, 2> b) {
+        double x1 = a[0], y1 = a[1], x2 = b[0], y2 = b[1];
+        return y1 / x1 < y2 / x2;
+    });
+    
+    for (int i = 1; i < n; ++i) {
+            
+    }
 }
 
 signed main() {
